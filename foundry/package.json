@@ -1,0 +1,19 @@
+{
+  "name": "all-mcp-chat",
+  "private": true,
+  "version": "1.0.0",
+  "description": "Internal Zendesk chat workspace for All MCPs and dedicated MCP tabs.",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index.js"
+  },
+  "engines": {
+    "node": ">=20"
+  },
+  "dependencies": {
+    "@modelcontextprotocol/sdk": "^1.30.0",
+    "express": "^4.21.2",
+    "google-auth-library": "^9.15.1",
+    "pg": "^8.16.3"
+  }
+}
