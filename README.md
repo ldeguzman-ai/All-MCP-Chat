@@ -14,8 +14,8 @@ The live URL is behind Zendesk Pomerium SSO. You must be signed in on the Zendes
 
 ## How it works
 
-- There is **no All MCPs tab**. Choose one MCP, then chat. Tabs are alphabetical, with a green or gray connection dot.
-- Dark mode is the default. Use the Light / Dark toggle anytime.
+- Choose one MCP, then chat.
+- MCPs have a green or gray connection dot.
 - Chat remembers the **last 10 user prompts** (plus replies) for the **selected tab**, in this browser session only. Refresh starts a new conversation.
 - Factual questions trigger MCP tools. The model searches, then retrieves the primary page, record, thread, or document before answering.
 - Source pages used in the answer appear as **1–2 clickable markdown links** in the reply (and optional source chips).
