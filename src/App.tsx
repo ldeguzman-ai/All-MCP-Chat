@@ -1,6 +1,6 @@
 import { type FormEvent, type KeyboardEvent, useEffect, useMemo, useRef, useState } from 'react'
 import './App.css'
-import { allMcpSource, mcpSources, sourceById } from './config/mcpRegistry'
+import { mcpSources, sourceById } from './config/mcpRegistry'
 import { sendChatMessage } from './services/chatClient'
 import { mcpRpc } from './services/mcpApi'
 import { fetchMcpStatus, type McpStatus } from './services/mcpStatus'
@@ -11,6 +11,7 @@ type ChatMessage = {
   content: string
   sourceId: string
   sources?: string[]
+  citations?: Array<{ source: string; url: string }>
 }
 
 const suggestedPrompts = [
@@ -20,10 +21,62 @@ const suggestedPrompts = [
 ]
 
 const mcpConnectHint =
-  'This page will reload as each MCP connects. You only need to act if you are asked to allow the MCP on a page, or to log in to Society as an agent or end user. Click an MCP tab if you prefer to use a single MCP source.'
+  'This page will reload as the selected MCP connects. You only need to act if you are asked to allow the MCP on a page, or to log in to Society as an agent or end user.'
 
 type Theme = 'light' | 'dark'
 const themeStorageKey = 'all-mcp-chat-theme-v2'
+
+function trimUrl(url: string) {
+  return url.replace(/[.,;:!?)]+$/, '')
+}
+
+function renderFormattedText(text: string, keyPrefix: string) {
+  const chunks = text.split(/(\*\*[^*]+\*\*)/g)
+  return chunks.map((chunk, chunkIndex) =>
+    chunk.startsWith('**') && chunk.endsWith('**') ? (
+      <strong key={`${keyPrefix}-b-${chunkIndex}`}>{chunk.slice(2, -2)}</strong>
+    ) : (
+      <span key={`${keyPrefix}-t-${chunkIndex}`}>{chunk}</span>
+    ),
+  )
+}
+
+function renderMessageContent(content: string) {
+  const nodes: Array<{ type: 'text' | 'link'; text: string; href?: string }> = []
+  const pattern =
+    /\[((?:[^\[\]]|\[[^\]]*\])*)\]\s*\(\s*(https?:\/\/[^\s<>"']+)\)|(https?:\/\/[^\s<>"']+)/g
+  let lastIndex = 0
+  let match: RegExpExecArray | null
+
+  while ((match = pattern.exec(content))) {
+    if (match.index > lastIndex) {
+      nodes.push({ type: 'text', text: content.slice(lastIndex, match.index) })
+    }
+    if (match[1] != null && match[2]) {
+      nodes.push({
+        type: 'link',
+        text: match[1].replace(/^["']|["']$/g, '').trim() || 'Source',
+        href: trimUrl(match[2]),
+      })
+    } else if (match[3]) {
+      const href = trimUrl(match[3])
+      nodes.push({ type: 'link', text: 'Source', href })
+    }
+    lastIndex = match.index + match[0].length
+  }
+  if (lastIndex < content.length) nodes.push({ type: 'text', text: content.slice(lastIndex) })
+
+  return nodes.flatMap((node, index) => {
+    if (node.type === 'link') {
+      return [
+        <a key={`link-${index}`} href={node.href} target="_blank" rel="noreferrer">
+          {node.text}
+        </a>,
+      ]
+    }
+    return renderFormattedText(node.text, `text-${index}`)
+  })
+}
 
 function readStoredTheme(): Theme {
   if (typeof window === 'undefined') return 'dark'
@@ -34,7 +87,7 @@ function readStoredTheme(): Theme {
 }
 
 function App() {
-  const [activeSourceId, setActiveSourceId] = useState('all')
+  const [activeSourceId, setActiveSourceId] = useState(mcpSources[0].id)
   const [input, setInput] = useState('')
   const [isSending, setIsSending] = useState(false)
   const [messages, setMessages] = useState<ChatMessage[]>([])
@@ -48,15 +101,15 @@ function App() {
   const requestRef = useRef<AbortController | null>(null)
 
   const activeSource = useMemo(() => sourceById(activeSourceId), [activeSourceId])
-  const connectedMcpCount = mcpStatus?.sources.filter((source) => source.connected).length ?? 0
-  const totalMcpCount = mcpStatus?.sources.length ?? 0
+  const orderedMcpSources = useMemo(
+    () => [...mcpSources].sort((left, right) => left.name.localeCompare(right.name)),
+    [],
+  )
   const connectionBySourceId = useMemo(
     () => new Map(mcpStatus?.sources.map((source) => [source.id, source.connected])),
     [mcpStatus],
   )
-  const activeSourceConnected =
-    activeSourceId === 'all' ? Boolean(mcpStatus?.connected) : Boolean(connectionBySourceId.get(activeSourceId))
-  const isConnectingAll = activeSourceId === 'all' && totalMcpCount > 0 && !mcpStatus?.connected
+  const activeSourceConnected = Boolean(connectionBySourceId.get(activeSourceId))
 
   useEffect(() => {
     document.documentElement.dataset.theme = theme
@@ -157,6 +210,7 @@ function App() {
           content: response.content,
           sourceId: activeSourceId,
           sources: response.sources,
+          citations: response.citations,
         },
       ])
     } catch (error) {
@@ -222,10 +276,7 @@ function App() {
         </header>
 
         <nav className="source-tabs" aria-label="MCP sources">
-          <button type="button" onClick={() => setActiveSourceId('all')} className={`source-tab ${activeSourceId === 'all' ? 'selected' : ''}`}>
-            <span className="source-icon all-icon">{allMcpSource.icon}</span><span>All MCPs</span><span className={`mcp-status-dot ${mcpStatus?.connected ? 'connected' : 'disconnected'}`} aria-label={mcpStatus?.connected ? 'All MCPs connected' : 'Some MCPs are not connected'} /><span className="tab-count">{mcpSources.length}</span>
-          </button>
-          {mcpSources.map((source) => (
+          {orderedMcpSources.map((source) => (
             <button key={source.id} type="button" title={source.description} onClick={() => setActiveSourceId(source.id)} className={`source-tab ${activeSourceId === source.id ? 'selected' : ''}`}>
               <span className="source-icon" style={{ backgroundColor: source.accent }}>{source.icon}</span><span>{source.name}</span><span className={`mcp-status-dot ${connectionBySourceId.get(source.id) ? 'connected' : 'disconnected'}`} aria-label={connectionBySourceId.get(source.id) ? `${source.name} connected` : `${source.name} not connected`} />
             </button>
@@ -238,24 +289,13 @@ function App() {
           {activeSourceConnected ? (
             <span className="mcp-connected">MCP connected</span>
           ) : (
-            <a className="connect-mcp" href={mcpStatus?.connectUrl || `/?mcp_connect=${encodeURIComponent(activeSourceId)}`}>
-              {oauthBusy ? 'Connecting...' : isConnectingAll ? 'Continue connecting' : 'Connect MCP'}
+            <a className="connect-mcp" href={`/?mcp_connect=${encodeURIComponent(activeSourceId)}`}>
+              {oauthBusy ? 'Connecting...' : 'Connect MCP'}
             </a>
           )}
         </div>
         {(oauthBusy || !activeSourceConnected) && (
           <p className="mcp-connect-hint">{mcpConnectHint}</p>
-        )}
-        {activeSourceId === 'all' && mcpStatus && (
-          <div className="mcp-progress" role="status" aria-live="polite">
-            <div className="mcp-progress-copy">
-              <strong>{connectedMcpCount} of {totalMcpCount} MCPs connected</strong>
-              <span>{mcpStatus.connected ? 'All MCP connections are ready.' : 'Each MCP is authorized separately for your account. Click a tab to use one MCP source for focused results.'}</span>
-            </div>
-            <div className="mcp-progress-track" aria-hidden="true">
-              <span style={{ width: `${totalMcpCount ? (connectedMcpCount / totalMcpCount) * 100 : 0}%` }} />
-            </div>
-          </div>
         )}
 
         <section className={`conversation ${messages.length ? 'has-messages' : ''}`}>
@@ -263,7 +303,7 @@ function App() {
             <div className="welcome">
               <div className="welcome-mark">✦</div><p className="welcome-eyebrow">ZENDESK INTELLIGENCE</p>
               <h2>How can I help?</h2>
-              <p className="welcome-copy">{activeSourceId === 'all' ? 'Ask a question and I’ll bring together the right knowledge from your connected tools.' : `Ask anything that ${activeSource.name} can help you find.`}</p>
+              <p className="welcome-copy">Ask anything that {activeSource.name} can help you find.</p>
               <div className="suggestions">
                 {suggestedPrompts.map((prompt) => <button key={prompt} type="button" onClick={() => setInput(prompt)}>{prompt}<span>↗</span></button>)}
               </div>
@@ -273,8 +313,18 @@ function App() {
               {messages.map((message) => (
                 <article key={message.id} className={`message ${message.role}`}>
                   <div className="message-avatar">{message.role === 'assistant' ? '✦' : 'You'}</div>
-                  <div className="message-body"><strong>{message.role === 'assistant' ? 'All-MCP-Chat' : 'You'}</strong><p>{message.content}</p>
-                    {message.sources && <div className="used-sources">{message.sources.map((source) => <span key={source}>⌁ {source}</span>)}</div>}
+                  <div className="message-body">
+                    <strong className="message-sender">{message.role === 'assistant' ? 'All-MCP-Chat' : 'You'}</strong>
+                    <p>{renderMessageContent(message.content)}</p>
+                    {message.citations?.length ? (
+                      <div className="used-sources">
+                        {message.citations.slice(0, 2).map((citation) => (
+                          <a key={citation.url} href={citation.url} target="_blank" rel="noreferrer">
+                            {citation.source}
+                          </a>
+                        ))}
+                      </div>
+                    ) : null}
                   </div>
                 </article>
               ))}
@@ -297,7 +347,7 @@ function App() {
             <button type="submit" className="send-button" disabled={!input.trim() || isSending} aria-label="Send message">↑</button>
           </div>
         </form>
-        <p className="disclaimer">This chat remembers the last 10 prompts in the selected MCP tab for context. Choose one MCP tab for more focused results. Verify important information.</p>
+        <p className="disclaimer">This chat remembers the last 10 prompts in the selected MCP tab for context. When a source page is used, it appears as 1 or 2 links in the answer. Verify important information.</p>
       </section>
     </main>
   )

@@ -2,7 +2,7 @@
   "name": "all-mcp-chat",
   "private": true,
   "version": "1.0.0",
-  "description": "Internal Zendesk chat workspace for All MCPs and dedicated MCP tabs.",
+  "description": "Experimental Zendesk-internal chat to test each available MCP chatbot.",
   "main": "index.js",
   "scripts": {
     "start": "node index.js"

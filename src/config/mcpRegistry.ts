@@ -6,15 +6,6 @@ export type McpSource = {
   icon: string
 }
 
-export const allMcpSource = {
-  id: 'all',
-  name: 'All MCPs',
-  description:
-    'Ask across every connected Zendesk MCP. The assistant chooses the sources that best match your question.',
-  accent: '#03363d',
-  icon: '✦',
-}
-
 export const mcpSources: McpSource[] = [
   {
     id: 'atlassian',
@@ -103,6 +94,4 @@ export const mcpSources: McpSource[] = [
 ]
 
 export const sourceById = (sourceId: string) =>
-  sourceId === allMcpSource.id
-    ? allMcpSource
-    : mcpSources.find((source) => source.id === sourceId) ?? allMcpSource
+  mcpSources.find((source) => source.id === sourceId) ?? mcpSources[0]

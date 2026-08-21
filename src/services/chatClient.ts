@@ -10,6 +10,7 @@ export type ChatRequest = {
 export type ChatResponse = {
   content: string
   sources: string[]
+  citations?: Array<{ source: string; url: string }>
 }
 
 const endpoint = import.meta.env.VITE_CHAT_ENDPOINT
@@ -50,15 +51,9 @@ export async function sendChatMessage({
       reject(new DOMException('The chat was cancelled.', 'AbortError'))
     }
   })
-  return sourceId === 'all'
-    ? {
-        content:
-          'I’m ready to help with that. When connected to App Foundry, I’ll use the best MCPs for your question and show which sources informed the answer.',
-        sources: ['Atlassian', 'Slack', 'zendesk-search-mcp'],
-      }
-    : {
-        content:
-          'This is a local preview. Connect the App Foundry chat endpoint to receive a live answer from this source.',
-        sources: [sourceById(sourceId).name],
-      }
+  return {
+    content:
+      'This is a local preview. Set VITE_CHAT_ENDPOINT to receive a live answer from the selected MCP.',
+    sources: [sourceById(sourceId).name],
+  }
 }

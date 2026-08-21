@@ -433,7 +433,7 @@ html[data-theme='dark'] {
   max-width: 680px;
 }
 
-.message-body strong {
+.message-sender {
   color: var(--text-strong);
   font-size: 12px;
 }
@@ -443,6 +443,15 @@ html[data-theme='dark'] {
   color: var(--text-soft);
   font-size: 14px;
   line-height: 1.6;
+  white-space: pre-wrap;
+}
+
+.message-body a {
+  color: var(--teal);
+  font-weight: 700;
+  text-decoration: underline;
+  cursor: pointer;
+  pointer-events: auto;
 }
 
 .used-sources {
@@ -452,13 +461,20 @@ html[data-theme='dark'] {
   margin-top: 11px;
 }
 
-.used-sources span {
+.used-sources span,
+.used-sources a {
   border-radius: 12px;
   padding: 4px 8px;
   background: var(--chip);
   color: var(--chip-text);
   font-size: 10px;
   font-weight: 700;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+.used-sources a:hover {
+  text-decoration: underline;
 }
 
 .thinking {
