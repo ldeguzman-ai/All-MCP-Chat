@@ -23,30 +23,15 @@ The live URL is behind Zendesk Pomerium SSO. You must be signed in on the Zendes
 
 ## Process topology
 
-```text
-Zendesk user / browser
-        ├── MCP Gateway OAuth ──→ Postgres encrypted tokens ──┐
-        └── All-MCP-Chat React UI ─────────────────────────────┴──→ App Foundry /api/chat
-                                                                         │
-                                                                         ▼
-                                                          Vertex LLM + source playbook
-                                                                         │
-                                                                         ▼
-                                                                   MCP Gateway
-                                                                         │
-                                                                         ▼
-                                                               One selected MCP
-                                                                         │
-                                                                         ▼
-                                                         Retrieved primary evidence
-                                                                         │
-                                                                         ▼
-                                                         Grounded answer + links
-```
+A Zendesk user connects **one MCP tab** at a time. The UI sends the prompt and selected source to `/api/chat`. Vertex uses that source’s playbook, searches, then retrieves the primary page, record, thread, or document. Answers must come from that evidence, not from search snippets.
 
-A Zendesk user connects one MCP at a time. The UI sends the prompt and selected source to `/api/chat`. Vertex uses that source’s playbook, calls the MCP gateway, retrieves primary evidence, and returns a grounded answer with clickable links.
+**Overview**
 
-![All-MCP-Chat topology](docs/all-mcp-chat-topology.png)
+![All-MCP-Chat topology overview: OAuth, /api/chat, one selected MCP, evidence, and grounded answer](docs/all-mcp-chat-topology.png)
+
+**Detailed flow**
+
+![All-MCP-Chat detailed topology: MCP groups, OAuth tokens, source playbook, search-then-retrieve, citations, and grounded answer](docs/all-mcp-chat-topology-detailed.png)
 
 ## When you need to connect MCP
 

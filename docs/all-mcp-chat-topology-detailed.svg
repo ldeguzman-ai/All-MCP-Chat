@@ -1,0 +1,137 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1280" height="1020" viewBox="0 0 1280 1020">
+  <rect width="1280" height="1020" fill="#111111"/>
+  <text x="640" y="36" text-anchor="middle" fill="#f3f4f6" font-family="Inter, Helvetica, Arial, sans-serif" font-size="18" font-weight="600">All-MCP-Chat - detailed flow</text>
+
+  <!-- MCP groups - gateway -->
+  <line x1="139" y1="126" x2="640" y2="574" stroke="#d1d5db" stroke-width="1.2"/>
+  <line x1="426" y1="126" x2="640" y2="574" stroke="#d1d5db" stroke-width="1.2"/>
+  <line x1="713" y1="126" x2="640" y2="574" stroke="#d1d5db" stroke-width="1.2"/>
+  <line x1="1000" y1="126" x2="640" y2="574" stroke="#d1d5db" stroke-width="1.2"/>
+  <text x="230" y="360" fill="#9ca3af" font-family="Inter, Helvetica, Arial, sans-serif" font-size="9">selected tab</text>
+  <text x="980" y="360" text-anchor="end" fill="#9ca3af" font-family="Inter, Helvetica, Arial, sans-serif" font-size="9">selected tab</text>
+
+  <!-- user - oauth - tokens -->
+  <line x1="139" y1="260" x2="426" y2="210" stroke="#d1d5db" stroke-width="1.2"/>
+  <text x="250" y="228" fill="#9ca3af" font-family="Inter, Helvetica, Arial, sans-serif" font-size="9">Connect MCP</text>
+  <line x1="525" y1="236" x2="614" y2="236" stroke="#d1d5db" stroke-width="1.2"/>
+  <text x="570" y="228" text-anchor="middle" fill="#9ca3af" font-family="Inter, Helvetica, Arial, sans-serif" font-size="9">PKCE token</text>
+  <!-- user - ui -->
+  <line x1="139" y1="260" x2="1000" y2="210" stroke="#d1d5db" stroke-width="1.2"/>
+  <text x="760" y="188" fill="#9ca3af" font-family="Inter, Helvetica, Arial, sans-serif" font-size="9">one tab</text>
+  <!-- tokens + ui - api -->
+  <line x1="713" y1="268" x2="640" y2="322" stroke="#d1d5db" stroke-width="1.2"/>
+  <text x="700" y="300" fill="#9ca3af" font-family="Inter, Helvetica, Arial, sans-serif" font-size="9">Bearer</text>
+  <line x1="1000" y1="268" x2="640" y2="322" stroke="#d1d5db" stroke-width="1.2"/>
+  <text x="880" y="300" fill="#9ca3af" font-family="Inter, Helvetica, Arial, sans-serif" font-size="9">prompt + sourceId</text>
+  <!-- api - playbook - vertex - gateway -->
+  <line x1="640" y1="380" x2="426" y2="430" stroke="#d1d5db" stroke-width="1.2"/>
+  <text x="500" y="412" fill="#9ca3af" font-family="Inter, Helvetica, Arial, sans-serif" font-size="9">scope</text>
+  <line x1="525" y1="459" x2="614" y2="459" stroke="#d1d5db" stroke-width="1.2"/>
+  <text x="570" y="451" text-anchor="middle" fill="#9ca3af" font-family="Inter, Helvetica, Arial, sans-serif" font-size="9">tools + history</text>
+  <line x1="713" y1="488" x2="640" y2="574" stroke="#d1d5db" stroke-width="1.2"/>
+  <text x="700" y="540" fill="#9ca3af" font-family="Inter, Helvetica, Arial, sans-serif" font-size="9">functionCall</text>
+  <!-- gateway - search - retrieve -->
+  <line x1="640" y1="632" x2="426" y2="690" stroke="#d1d5db" stroke-width="1.2"/>
+  <text x="500" y="668" fill="#9ca3af" font-family="Inter, Helvetica, Arial, sans-serif" font-size="9">locator only</text>
+  <line x1="525" y1="719" x2="614" y2="719" stroke="#d1d5db" stroke-width="1.2" stroke-dasharray="5 4"/>
+  <text x="570" y="711" text-anchor="middle" fill="#9ca3af" font-family="Inter, Helvetica, Arial, sans-serif" font-size="9">page / record id</text>
+  <!-- retrieve - citations / answer -->
+  <line x1="713" y1="748" x2="426" y2="830" stroke="#d1d5db" stroke-width="1.2"/>
+  <text x="520" y="800" fill="#9ca3af" font-family="Inter, Helvetica, Arial, sans-serif" font-size="9">1 2 URLs</text>
+  <line x1="713" y1="748" x2="713" y2="830" stroke="#d1d5db" stroke-width="1.2"/>
+  <text x="760" y="800" fill="#9ca3af" font-family="Inter, Helvetica, Arial, sans-serif" font-size="9">primary evidence</text>
+  <!-- citations/answer - ui -->
+  <line x1="426" y1="830" x2="1000" y2="268" stroke="#d1d5db" stroke-width="1.2"/>
+  <line x1="713" y1="888" x2="1000" y2="268" stroke="#d1d5db" stroke-width="1.2"/>
+  <text x="1080" y="620" fill="#9ca3af" font-family="Inter, Helvetica, Arial, sans-serif" font-size="9">markdown links / chips</text>
+
+  <!-- Row: MCP groups -->
+  <g>
+    <rect x="40" y="68" width="198" height="58" rx="4" fill="#2a2a2a" stroke="#6b7280"/>
+    <text x="139" y="90" text-anchor="middle" fill="#f3f4f6" font-family="Inter, Helvetica, Arial, sans-serif" font-size="12" font-weight="600">Internal MCPs</text>
+    <text x="139" y="108" text-anchor="middle" fill="#d1d5db" font-family="Inter, Helvetica, Arial, sans-serif" font-size="10">Atlassian - Society - Cerebro - Slack - Drive</text>
+  </g>
+  <g>
+    <rect x="327" y="68" width="198" height="58" rx="4" fill="#2a2a2a" stroke="#6b7280"/>
+    <text x="426" y="90" text-anchor="middle" fill="#f3f4f6" font-family="Inter, Helvetica, Arial, sans-serif" font-size="12" font-weight="600">Zendesk MCPs</text>
+    <text x="426" y="108" text-anchor="middle" fill="#d1d5db" font-family="Inter, Helvetica, Arial, sans-serif" font-size="10">Help Center - zendeskdev - Support search</text>
+  </g>
+  <g>
+    <rect x="614" y="68" width="198" height="58" rx="4" fill="#2a2a2a" stroke="#6b7280"/>
+    <text x="713" y="90" text-anchor="middle" fill="#f3f4f6" font-family="Inter, Helvetica, Arial, sans-serif" font-size="12" font-weight="600">Unleash</text>
+    <text x="713" y="108" text-anchor="middle" fill="#d1d5db" font-family="Inter, Helvetica, Arial, sans-serif" font-size="10">Flags - env - strategies</text>
+  </g>
+  <g>
+    <rect x="901" y="68" width="198" height="58" rx="4" fill="#2a2a2a" stroke="#6b7280"/>
+    <text x="1000" y="90" text-anchor="middle" fill="#f3f4f6" font-family="Inter, Helvetica, Arial, sans-serif" font-size="12" font-weight="600">Public research</text>
+    <text x="1000" y="108" text-anchor="middle" fill="#d1d5db" font-family="Inter, Helvetica, Arial, sans-serif" font-size="10">Tavily - Fetch - Researcher</text>
+  </g>
+
+  <!-- Auth / UI -->
+  <g>
+    <rect x="40" y="210" width="198" height="58" rx="4" fill="#2a2a2a" stroke="#6b7280"/>
+    <text x="139" y="232" text-anchor="middle" fill="#f3f4f6" font-family="Inter, Helvetica, Arial, sans-serif" font-size="12" font-weight="600">Zendesk user</text>
+    <text x="139" y="250" text-anchor="middle" fill="#d1d5db" font-family="Inter, Helvetica, Arial, sans-serif" font-size="10">Pomerium SSO - one MCP tab</text>
+  </g>
+  <g>
+    <rect x="327" y="210" width="198" height="58" rx="4" fill="#2a2a2a" stroke="#6b7280"/>
+    <text x="426" y="232" text-anchor="middle" fill="#f3f4f6" font-family="Inter, Helvetica, Arial, sans-serif" font-size="12" font-weight="600">MCP Gateway OAuth</text>
+    <text x="426" y="250" text-anchor="middle" fill="#d1d5db" font-family="Inter, Helvetica, Arial, sans-serif" font-size="10">One binding per login</text>
+  </g>
+  <g>
+    <rect x="614" y="210" width="198" height="58" rx="4" fill="#2a2a2a" stroke="#6b7280"/>
+    <text x="713" y="232" text-anchor="middle" fill="#f3f4f6" font-family="Inter, Helvetica, Arial, sans-serif" font-size="12" font-weight="600">Postgres tokens</text>
+    <text x="713" y="250" text-anchor="middle" fill="#d1d5db" font-family="Inter, Helvetica, Arial, sans-serif" font-size="10">Encrypted per user + source</text>
+  </g>
+  <g>
+    <rect x="901" y="210" width="198" height="58" rx="4" fill="#2a2a2a" stroke="#6b7280"/>
+    <text x="1000" y="232" text-anchor="middle" fill="#f3f4f6" font-family="Inter, Helvetica, Arial, sans-serif" font-size="12" font-weight="600">All-MCP-Chat UI</text>
+    <text x="1000" y="250" text-anchor="middle" fill="#d1d5db" font-family="Inter, Helvetica, Arial, sans-serif" font-size="10">Last 10 prompts in this tab</text>
+  </g>
+
+  <!-- Hub -->
+  <g>
+    <rect x="541" y="322" width="198" height="58" rx="4" fill="#3b82f6" stroke="#3b82f6"/>
+    <text x="640" y="344" text-anchor="middle" fill="#ffffff" font-family="Inter, Helvetica, Arial, sans-serif" font-size="12" font-weight="600">Foundry /api/chat</text>
+    <text x="640" y="362" text-anchor="middle" fill="#ffffff" font-family="Inter, Helvetica, Arial, sans-serif" font-size="10">Single-source chat hub</text>
+  </g>
+
+  <g>
+    <rect x="327" y="430" width="198" height="58" rx="4" fill="#333333" stroke="#6b7280"/>
+    <text x="426" y="452" text-anchor="middle" fill="#f3f4f6" font-family="Inter, Helvetica, Arial, sans-serif" font-size="12" font-weight="600">Source playbook</text>
+    <text x="426" y="470" text-anchor="middle" fill="#d1d5db" font-family="Inter, Helvetica, Arial, sans-serif" font-size="10">Per-MCP retrieve rules</text>
+  </g>
+  <g>
+    <rect x="614" y="430" width="198" height="58" rx="4" fill="#333333" stroke="#6b7280"/>
+    <text x="713" y="452" text-anchor="middle" fill="#f3f4f6" font-family="Inter, Helvetica, Arial, sans-serif" font-size="12" font-weight="600">Vertex LLM</text>
+    <text x="713" y="470" text-anchor="middle" fill="#d1d5db" font-family="Inter, Helvetica, Arial, sans-serif" font-size="10">Search first - then get record</text>
+  </g>
+
+  <g>
+    <rect x="541" y="574" width="198" height="58" rx="4" fill="#333333" stroke="#6b7280"/>
+    <text x="640" y="596" text-anchor="middle" fill="#f3f4f6" font-family="Inter, Helvetica, Arial, sans-serif" font-size="12" font-weight="600">MCP Gateway</text>
+    <text x="640" y="614" text-anchor="middle" fill="#d1d5db" font-family="Inter, Helvetica, Arial, sans-serif" font-size="10">https://mcp-gateway.zende.sk</text>
+  </g>
+
+  <g>
+    <rect x="327" y="690" width="198" height="58" rx="4" fill="#333333" stroke="#6b7280"/>
+    <text x="426" y="712" text-anchor="middle" fill="#f3f4f6" font-family="Inter, Helvetica, Arial, sans-serif" font-size="12" font-weight="600">Search tools</text>
+    <text x="426" y="730" text-anchor="middle" fill="#d1d5db" font-family="Inter, Helvetica, Arial, sans-serif" font-size="10">Snippets are locators only</text>
+  </g>
+  <g>
+    <rect x="614" y="690" width="198" height="58" rx="4" fill="#2a2a2a" stroke="#6b7280"/>
+    <text x="713" y="712" text-anchor="middle" fill="#f3f4f6" font-family="Inter, Helvetica, Arial, sans-serif" font-size="12" font-weight="600">Get / read tools</text>
+    <text x="713" y="730" text-anchor="middle" fill="#d1d5db" font-family="Inter, Helvetica, Arial, sans-serif" font-size="10">Full page, thread, or record</text>
+  </g>
+
+  <g>
+    <rect x="327" y="830" width="198" height="58" rx="4" fill="#2a2a2a" stroke="#6b7280"/>
+    <text x="426" y="852" text-anchor="middle" fill="#f3f4f6" font-family="Inter, Helvetica, Arial, sans-serif" font-size="12" font-weight="600">Citations</text>
+    <text x="426" y="870" text-anchor="middle" fill="#d1d5db" font-family="Inter, Helvetica, Arial, sans-serif" font-size="10">Human page URLs - max 2</text>
+  </g>
+  <g>
+    <rect x="614" y="830" width="198" height="58" rx="4" fill="#2a2a2a" stroke="#6b7280"/>
+    <text x="713" y="852" text-anchor="middle" fill="#f3f4f6" font-family="Inter, Helvetica, Arial, sans-serif" font-size="12" font-weight="600">Grounded answer</text>
+    <text x="713" y="870" text-anchor="middle" fill="#d1d5db" font-family="Inter, Helvetica, Arial, sans-serif" font-size="10">No guess if evidence missing</text>
+  </g>
+</svg>
