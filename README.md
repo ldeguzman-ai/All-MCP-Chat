@@ -21,6 +21,33 @@ The live URL is behind Zendesk Pomerium SSO. You must be signed in on the Zendes
 - Source pages used in the answer appear as **1–2 clickable markdown links** in the reply (and optional source chips).
 - Each MCP has its own research playbook (see below). Atlassian, for example, must open the full Confluence page or Jira issue and inspect expand/dropdown/macro content instead of answering from a search snippet.
 
+## Process topology
+
+```text
+Zendesk user / browser
+        ├── MCP Gateway OAuth ──→ Postgres encrypted tokens ──┐
+        └── All-MCP-Chat React UI ─────────────────────────────┴──→ App Foundry /api/chat
+                                                                         │
+                                                                         ▼
+                                                          Vertex LLM + source playbook
+                                                                         │
+                                                                         ▼
+                                                                   MCP Gateway
+                                                                         │
+                                                                         ▼
+                                                               One selected MCP
+                                                                         │
+                                                                         ▼
+                                                         Retrieved primary evidence
+                                                                         │
+                                                                         ▼
+                                                         Grounded answer + links
+```
+
+A Zendesk user connects one MCP at a time. The UI sends the prompt and selected source to `/api/chat`. Vertex uses that source’s playbook, calls the MCP gateway, retrieves primary evidence, and returns a grounded answer with clickable links.
+
+![All-MCP-Chat topology](docs/all-mcp-chat-topology.png)
+
 ## When you need to connect MCP
 
 Connect **once per browser account** (your SSO email) before tools can run.

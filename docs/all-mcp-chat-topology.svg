@@ -1,0 +1,45 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="920" height="980" viewBox="0 0 920 980">
+  <rect width="920" height="980" fill="#1b1b1b"/>
+  <text x="460" y="36" text-anchor="middle" fill="#f3f4f6" font-family="Inter, Helvetica, Arial, sans-serif" font-size="18" font-weight="600">Authentication and answer flow</text>
+
+  <line x1="460" y1="92" x2="230" y2="140" stroke="#9ca3af" stroke-width="1.5"/>
+  <line x1="460" y1="92" x2="690" y2="140" stroke="#9ca3af" stroke-width="1.5"/>
+  <line x1="230" y1="188" x2="230" y2="236" stroke="#9ca3af" stroke-width="1.5"/>
+  <line x1="230" y1="284" x2="460" y2="348" stroke="#9ca3af" stroke-width="1.5"/>
+  <line x1="690" y1="188" x2="460" y2="348" stroke="#9ca3af" stroke-width="1.5"/>
+  <line x1="460" y1="396" x2="460" y2="444" stroke="#9ca3af" stroke-width="1.5"/>
+  <line x1="460" y1="492" x2="460" y2="540" stroke="#9ca3af" stroke-width="1.5"/>
+  <line x1="460" y1="588" x2="460" y2="636" stroke="#9ca3af" stroke-width="1.5"/>
+  <line x1="460" y1="684" x2="460" y2="732" stroke="#9ca3af" stroke-width="1.5"/>
+  <line x1="460" y1="780" x2="460" y2="828" stroke="#9ca3af" stroke-width="1.5"/>
+
+  <rect x="368" y="52" width="184" height="48" rx="4" fill="#2a2a2a" stroke="#6b7280"/>
+  <text x="460" y="81" text-anchor="middle" fill="#f3f4f6" font-family="Inter, Helvetica, Arial, sans-serif" font-size="12">Zendesk user / browser</text>
+
+  <rect x="138" y="140" width="184" height="48" rx="4" fill="#2a2a2a" stroke="#6b7280"/>
+  <text x="230" y="169" text-anchor="middle" fill="#f3f4f6" font-family="Inter, Helvetica, Arial, sans-serif" font-size="12">MCP Gateway OAuth</text>
+
+  <rect x="598" y="140" width="184" height="48" rx="4" fill="#2a2a2a" stroke="#6b7280"/>
+  <text x="690" y="169" text-anchor="middle" fill="#f3f4f6" font-family="Inter, Helvetica, Arial, sans-serif" font-size="12">All-MCP-Chat React UI</text>
+
+  <rect x="138" y="236" width="184" height="48" rx="4" fill="#2a2a2a" stroke="#6b7280"/>
+  <text x="230" y="265" text-anchor="middle" fill="#f3f4f6" font-family="Inter, Helvetica, Arial, sans-serif" font-size="12">Postgres encrypted tokens</text>
+
+  <rect x="368" y="348" width="184" height="48" rx="4" fill="#3b82f6" stroke="#3b82f6"/>
+  <text x="460" y="377" text-anchor="middle" fill="#ffffff" font-family="Inter, Helvetica, Arial, sans-serif" font-size="12">App Foundry /api/chat</text>
+
+  <rect x="368" y="444" width="184" height="48" rx="4" fill="#333333" stroke="#6b7280"/>
+  <text x="460" y="473" text-anchor="middle" fill="#f3f4f6" font-family="Inter, Helvetica, Arial, sans-serif" font-size="12">Vertex LLM + source playbook</text>
+
+  <rect x="368" y="540" width="184" height="48" rx="4" fill="#333333" stroke="#6b7280"/>
+  <text x="460" y="569" text-anchor="middle" fill="#f3f4f6" font-family="Inter, Helvetica, Arial, sans-serif" font-size="12">MCP Gateway</text>
+
+  <rect x="368" y="636" width="184" height="48" rx="4" fill="#333333" stroke="#6b7280"/>
+  <text x="460" y="665" text-anchor="middle" fill="#f3f4f6" font-family="Inter, Helvetica, Arial, sans-serif" font-size="12">One selected MCP</text>
+
+  <rect x="368" y="732" width="184" height="48" rx="4" fill="#2a2a2a" stroke="#6b7280"/>
+  <text x="460" y="761" text-anchor="middle" fill="#f3f4f6" font-family="Inter, Helvetica, Arial, sans-serif" font-size="12">Retrieved primary evidence</text>
+
+  <rect x="368" y="828" width="184" height="48" rx="4" fill="#2a2a2a" stroke="#6b7280"/>
+  <text x="460" y="857" text-anchor="middle" fill="#f3f4f6" font-family="Inter, Helvetica, Arial, sans-serif" font-size="12">Grounded answer + links</text>
+</svg>
